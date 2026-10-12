@@ -85,7 +85,8 @@ header.intro { padding: 36px 0 0; }
 .cv { list-style: none; padding: 0; margin: 28px 0 24px; }
 .cv li { display: flex; gap: 14px; padding: 4px 0; }
 .cv li::before { content: "▸"; }
-.cv span { flex: 0 0 72px; color: var(--c3); }
+.cv span { flex: 0 0 150px; color: var(--c3); }
+@media (max-width: 600px) { .cv li { flex-wrap: wrap; gap: 0 10px; } .cv span { flex-basis: auto; } }
 
 .cta { display: flex; gap: 14px; flex-wrap: wrap; }
 .btn, .filters button {
@@ -220,12 +221,13 @@ footer h2 { margin-bottom: 8px; }
       <span class="next" aria-hidden="true">▼</span>
     </div>
     <ul class="cv">
-      <li><span>2027</span>Amazon · Software Development Engineer Intern, Dublin</li>
-      <li><span>2026</span>Paris Digital Lab · Machine Learning &amp; Software Engineer</li>
-      <li><span>2026</span>Satellite imaging research with Prof. Diego Valsesia, Politecnico di Torino</li>
-      <li><span>2024–28</span>CentraleSupélec · Master in Engineering · after MP2I prep classes at Lycée Louis-le-Grand</li>
+      <li><span>Jan–May 2027</span>Amazon · Software Development Engineer Intern, Dublin</li>
+      <li><span>Sep–Dec 2026</span>Paris Digital Lab · Machine Learning &amp; Software Engineer</li>
+      <li><span>Sep 2026–now</span>Satellite imaging research with Prof. Diego Valsesia, Politecnico di Torino</li>
+      <li><span>2024–2028</span>CentraleSupélec · Master in Engineering · after MP2I prep classes at Lycée Louis-le-Grand</li>
     </ul>
     <div class="cta">
+      <a class="btn" href="mailto:khalil.bibi@student-cs.fr">✉ khalil.bibi@student-cs.fr</a>
       <a class="btn" href="https://github.com/khalilb1929" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="https://www.linkedin.com/in/khalil-bibi1" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
