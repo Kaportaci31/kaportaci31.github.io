@@ -143,7 +143,7 @@ h2::before { content: "» "; color: var(--c3); }
 footer { padding: 0; }
 footer h2 { margin-bottom: 8px; }
 .small { font-size: 18px; color: var(--c3); margin: 28px 0 0; }
-.ground { position: relative; margin-top: 48px; height: 120px; overflow: hidden; }
+.ground { position: relative; margin-top: 48px; height: 64px; overflow: hidden; }
 .grass {
   position: absolute; left: 0; right: 0; bottom: 0; height: 64px;
   background:
@@ -151,16 +151,50 @@ footer h2 { margin-bottom: 8px; }
     linear-gradient(var(--c3), var(--c3)) no-repeat 0 32px / 100% 100%;
   image-rendering: pixelated;
 }
-.walker {
-  position: absolute; bottom: 60px; left: 0; width: 48px; height: 56px;
-  animation: walk 18s linear infinite;
+/* Petit compagnon fixé dans le coin */
+.buddy {
+  position: fixed; right: 18px; bottom: 0; z-index: 20;
+  width: 84px; display: flex; flex-direction: column; align-items: center;
 }
-.walker svg { display: block; width: 100%; height: 100%; animation: face 18s steps(1) infinite, bob .5s steps(2) infinite; }
-@keyframes walk { 0% { left: 0; } 50% { left: calc(100% - 48px); } 100% { left: 0; } }
-@keyframes face { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
-@keyframes bob { 50% { translate: 0 -4px; } }
+.buddy-btn {
+  appearance: none; border: 0; background: none; padding: 0; cursor: pointer;
+  width: 48px; height: 76px; margin-bottom: -4px;
+  animation: idle 1.2s steps(2) infinite;
+}
+.buddy-btn svg { display: block; width: 100%; height: 100%; transform: scaleX(-1); }
+.buddy-btn:focus-visible { outline: 3px dashed var(--c4); outline-offset: 4px; }
+.buddy-btn.hop { animation: hop .45s steps(4) 1; }
+.buddy .eye { animation: blinkeye 4s steps(1) infinite; }
+.buddy .heart { opacity: 0; }
+.buddy.happy .heart { opacity: 1; }
+.patch {
+  width: 84px; height: 24px; border: 3px solid var(--c4); border-bottom: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges'%3E%3Cpath fill='%23414d35' d='M1 2h1v1H1zM0 3h1v1H0zM2 3h1v1H2zM1 4h1v4H1zM5 3h1v1H5zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v3H5z'/%3E%3C/svg%3E") repeat-x 0 0 / 16px 16px,
+    var(--c1);
+  image-rendering: pixelated;
+}
+.bubble {
+  position: absolute; right: 62px; bottom: 70px; width: max-content; max-width: 220px;
+  background: var(--c0); color: var(--c4); border: 3px solid var(--c4);
+  box-shadow: var(--px) var(--px) 0 var(--c4);
+  padding: 6px 10px; font-size: 19px; line-height: 1.15;
+  pointer-events: none;
+  opacity: 0; transform: translateY(6px); transition: opacity .15s steps(2), transform .15s steps(2);
+}
+.bubble::before {
+  content: ""; position: absolute; right: -12px; bottom: 10px;
+  border: 6px solid transparent; border-left-color: var(--c4);
+}
+.bubble.show { opacity: 1; transform: none; }
+@keyframes idle { 50% { transform: translateY(-3px); } }
+@keyframes hop { 0%, 100% { transform: none; } 50% { transform: translateY(-18px); } }
+@keyframes blinkeye { 0%, 90%, 100% { opacity: 1; } 92%, 96% { opacity: 0; } }
+@media (max-width: 600px) {
+  .buddy { right: 6px; transform: scale(.75); transform-origin: bottom right; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .walker, .walker svg, .dialog .next { animation: none; }
+  .buddy-btn, .buddy .eye, .dialog .next { animation: none; }
 }
 </style>
 </head>
@@ -352,10 +386,15 @@ footer h2 { margin-bottom: 8px; }
     <p class="small">© 2026 Khalil Bibi</p>
   </div>
   <div class="ground" aria-hidden="true">
-    <div class="walker" id="walker"></div>
     <div class="grass"></div>
   </div>
 </footer>
+
+<div class="buddy" id="buddy">
+  <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
+  <button class="buddy-btn" id="buddy-btn" aria-label="Say hi to the little guy"></button>
+  <div class="patch" aria-hidden="true"></div>
+</div>
 
 <script>
   // Filtres
@@ -367,16 +406,21 @@ footer h2 { margin-bottom: 8px; }
     cards.forEach(c => { c.hidden = f !== 'all' && !c.dataset.c.split(' ').includes(f); });
   }));
 
-  // Personnage en pixel art, dessiné à partir d'une grille
+  // Petit compagnon en pixel art, dessiné à partir d'une grille
   const sprite = [
+    '.......k.k..',
+    '......kkkkk.',
+    '.......kkk..',
+    '........k...',
     '...kkkkkk...',
     '..kmmmmmmk..',
     '.kmmmmmmmmk.',
     '.kkkkkkkkkk.',
     '.kllllllllk.',
-    '.klkllllklk.',
-    '.kllllllllk.',
-    '..kllllllk..',
+    '.kllellellk.',
+    '.kllellellk.',
+    '.kcllllllck.',
+    '..kllkkllk..',
     '...kkkkkk...',
     '..kddmmddk..',
     '.kddmmmmddk.',
@@ -384,13 +428,45 @@ footer h2 { margin-bottom: 8px; }
     '...kdkkdk...',
     '...kk..kk...'
   ];
-  const colors = { k: '#141a11', d: '#414d35', m: '#7d8a68', l: '#e6ebd3' };
-  let rects = '';
+  const colors = { k: '#141a11', d: '#414d35', m: '#7d8a68', l: '#e6ebd3', c: '#b4bea1' };
+  let svg = '';
   sprite.forEach((row, y) => [...row].forEach((ch, x) => {
-    if (colors[ch]) rects += `<rect x="${x}" y="${y}" width="1" height="1" fill="${colors[ch]}"/>`;
+    const heart = y < 4 ? ' class="heart"' : '';
+    if (ch === 'e') {
+      svg += `<rect x="${x}" y="${y}" width="1" height="1" fill="${colors.l}"/>`;
+      svg += `<rect class="eye" x="${x}" y="${y}" width="1" height="1" fill="${colors.k}"/>`;
+    } else if (colors[ch]) {
+      svg += `<rect${heart} x="${x}" y="${y}" width="1" height="1" fill="${colors[ch]}"/>`;
+    }
   }));
-  document.getElementById('walker').innerHTML =
-    `<svg viewBox="0 0 12 14" shape-rendering="crispEdges">${rects}</svg>`;
-</script>
+  const buddy = document.getElementById('buddy');
+  const btn = document.getElementById('buddy-btn');
+  const bubble = document.getElementById('bubble');
+  btn.innerHTML = `<svg viewBox="0 0 12 19" shape-rendering="crispEdges" aria-hidden="true">${svg}</svg>`;
+
+  const lines = [
+    "Hi! I'm Khalil's little buddy.",
+    'Psst… start with vit2snn ↓',
+    'Try the filters up there!',
+    'Hiring? Contact is at the bottom.',
+    'Have a nice day ♥'
+  ];
+  let n = 0, timer;
+  function say(text, ms = 3200) {
+    bubble.textContent = text;
+    bubble.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(() => bubble.classList.remove('show'), ms);
+  }
+  btn.addEventListener('click', () => {
+    btn.classList.remove('hop'); void btn.offsetWidth; btn.classList.add('hop');
+    buddy.classList.add('happy');
+    setTimeout(() => buddy.classList.remove('happy'), 1200);
+    say(lines[n++ % lines.length]);
+  });
+  btn.addEventListener('animationend', e => { if (e.animationName === 'hop') btn.classList.remove('hop'); });
+  setTimeout(() => say(lines[n++]), 1200);
+  buttons.forEach(b => b.addEventListener('click', () =>
+    say(b.dataset.f === 'all' ? 'Everything, nice!' : b.textContent + ' it is!', 2200)));</script>
 </body>
 </html>
