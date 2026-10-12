@@ -161,7 +161,6 @@ footer h2 { margin-bottom: 12px; }
         <p>Converts a pretrained ViT-Tiny/16 into a spiking Vision Transformer (4 time steps) in two phases: the student first copies the teacher layer by layer, then is fine-tuned on the labels with a distillation loss. Trained and evaluated on Imagenette on a laptop (Apple M2), with firing-rate profiling, an analytical energy estimate, diagnostics and a three-seed ablation study.</p>
         <div class="highlight">Layer-wise distillation adds +13.0 and +10.3 top-1 points over fine-tuning alone (5 and 12 epochs, positive in all 3 seeds). Best student: 70.2% top-1 on the 10 Imagenette classes with ~7.5% of neurons firing, at an estimated 0.56 mJ per image vs 5.77 mJ for the teacher.</div>
         <div class="tags"><span>PyTorch</span><span>timm</span><span>Spiking ViT</span><span>Distillation</span><span>LaTeX</span></div>
-        <a class="link" href="https://github.com/khalilb1929/vit2snn" target="_blank" rel="noopener">View repository ↗</a>
       </article>
 
       <article class="card" data-c="research">
