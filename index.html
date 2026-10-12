@@ -155,12 +155,13 @@ footer h2 { margin-bottom: 12px; }
 
     <div class="grid" id="grid">
 
-      <article class="card featured" data-c="research health">
-        <div class="card-top"><span class="kind">Personal research · in progress</span><span class="vis">Private code — on request</span></div>
-        <h3>ViT → SNN: distilling DINOv2 into a spiking neural network</h3>
-        <p>Knowledge distillation from a frozen DINOv2 ViT-S/14 into a small convolutional spiking neural network (LIF neurons), aiming at low-power vision for edge devices, with endoscopy as the target domain. Includes ablations on time steps and loss terms, spike-activity analysis and an energy estimate.</p>
-        <div class="highlight">Preliminary experiments on synthetic data: the SNN matches a conventional ANN student in feature alignment with the teacher (cosine 0.88), with ~74% of neurons silent.</div>
-        <div class="tags"><span>PyTorch</span><span>DINOv2</span><span>SNN / LIF</span><span>Distillation</span><span>LaTeX</span></div>
+      <article class="card featured" data-c="research">
+        <div class="card-top"><span class="kind">Personal research</span><span class="vis">Technical report + paper drafts</span></div>
+        <h3>vit2snn: layer-wise distillation of a Vision Transformer into a spiking ViT</h3>
+        <p>Converts a pretrained ViT-Tiny/16 into a spiking Vision Transformer (4 time steps) in two phases: the student first copies the teacher layer by layer, then is fine-tuned on the labels with a distillation loss. Trained and evaluated on Imagenette on a laptop (Apple M2), with firing-rate profiling, an analytical energy estimate, diagnostics and a three-seed ablation study.</p>
+        <div class="highlight">Layer-wise distillation adds +13.0 and +10.3 top-1 points over fine-tuning alone (5 and 12 epochs, positive in all 3 seeds). Best student: 70.2% top-1 on the 10 Imagenette classes with ~7.5% of neurons firing, at an estimated 0.56 mJ per image vs 5.77 mJ for the teacher.</div>
+        <div class="tags"><span>PyTorch</span><span>timm</span><span>Spiking ViT</span><span>Distillation</span><span>LaTeX</span></div>
+        <a class="link" href="https://github.com/khalilb1929/vit2snn" target="_blank" rel="noopener">View repository ↗</a>
       </article>
 
       <article class="card" data-c="research">
