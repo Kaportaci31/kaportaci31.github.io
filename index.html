@@ -7,7 +7,7 @@
 <meta name="description" content="Portfolio of Khalil Bibi: spiking neural networks, AI for healthcare, satellite imaging, data challenges and quantitative finance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Palette 4 tons façon console portable */
@@ -31,9 +31,10 @@ body {
 }
 ::selection { background: var(--c4); color: var(--c0); }
 a { color: inherit; }
-h1, h2, h3, .logo, .kind, .btn, .filters button {
+.logo, .btn, .filters button {
   font-family: "Pixelify Sans", "IBM Plex Mono", monospace;
 }
+h1, h2, h3 { letter-spacing: -0.01em; }
 .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 @media (max-width: 600px) { .wrap { padding: 0 16px; } body { font-size: 15px; } }
 
@@ -71,7 +72,7 @@ header.intro { padding: 36px 0 0; }
 .dialog .bl { bottom: -10px; left: -10px; }
 .dialog .br { bottom: -10px; right: -10px; }
 .dialog h1 {
-  font-size: clamp(30px, 6vw, 46px); line-height: 1.1; margin: 0 0 16px; font-weight: 700;
+  font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: 0 0 16px; font-weight: 700;
 }
 .dialog p { margin: 0 0 12px; max-width: 720px; }
 .dialog strong { font-weight: normal; background: var(--c0); color: var(--c4); padding: 0 4px; }
@@ -105,7 +106,7 @@ header.intro { padding: 36px 0 0; }
 .btn:active, .filters button:active { transform: translate(var(--px), var(--px)); box-shadow: none; }
 
 section { padding: 0; }
-h2 { font-size: 32px; margin: 0 0 4px; font-weight: 700; }
+h2 { font-size: 28px; margin: 0 0 4px; font-weight: 700; }
 h2::before { content: "» "; color: var(--c3); }
 .section-sub { margin: 0 0 24px; color: var(--c4); }
 
@@ -129,10 +130,10 @@ h2::before { content: "» "; color: var(--c3); }
 .card:hover { transform: translate(-3px, -3px); box-shadow: 11px 11px 0 var(--c3); }
 .card.featured { grid-column: 1 / -1; }
 .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 2px 12px; flex-wrap: wrap; }
-.kind { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--c3); }
+.kind { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--c3); }
 .kind::before { content: "▶ "; }
 .vis { font-size: 13px; color: var(--c3); }
-.card h3 { margin: 0; font-size: 21px; line-height: 1.25; font-weight: 700; }
+.card h3 { margin: 0; font-size: 19px; line-height: 1.3; font-weight: 700; }
 .card p { margin: 0; color: var(--c4); }
 .highlight { background: var(--c4); color: var(--c0); padding: 10px 14px; }
 .highlight::before { content: "★ "; }
