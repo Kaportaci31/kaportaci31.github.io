@@ -273,6 +273,13 @@ footer h2 { margin-bottom: 8px; }
         <a class="link" href="https://github.com/khalilb1929/Database-Sentinel-" target="_blank" rel="noopener">View code ↗</a>
       </article>
 
+      <article class="card" data-c="research coursework">
+        <div class="card-top"><span class="kind">Politecnico di Torino · Course project</span><span class="vis">Mar–May 2026</span></div>
+        <h3>Road scene segmentation and anomaly detection</h3>
+        <p>Compared a pixel-based CNN (ERFNet) with a mask-based Transformer (EoMT, built on a self-supervised DINOv2 backbone) for semantic segmentation of road scenes and pixel-level detection of out-of-distribution objects. Fine-tuned EoMT with LoRA in its attention layers, and evaluated four post-hoc anomaly scores (MSP, Max Logit, Max Entropy, RbA) on 5 road benchmarks, with temperature-scaling calibration.</p>
+        <div class="highlight">LoRA fine-tuning on Cityscapes raises the COCO-trained EoMT from 54.0% to 74.3% mIoU.</div>
+        <div class="tags"><span>PyTorch</span><span>DINOv2</span><span>EoMT</span><span>LoRA</span><span>Anomaly detection</span></div>
+      </article>
       <article class="card" data-c="hackathon">
         <div class="card-top"><span class="kind">AMD × Lablab.ai hackathon</span><span class="vis">Private code — on request</span></div>
         <h3>PolyM.AI.rket: multi-agent debate for forecasting</h3>
@@ -335,9 +342,9 @@ footer h2 { margin-bottom: 8px; }
       </article>
 
       <article class="card" data-c="coursework">
-        <div class="card-top"><span class="kind">CentraleSupélec · First-year project</span><span class="vis">2024–25</span></div>
-        <h3>Robotic arm for sorting electronic components</h3>
-        <p>Robotic arm that sorts electronic components. Vision module on a Raspberry Pi: the camera captures the chip, OpenCV isolates its package and applies adaptive thresholding, then Tesseract OCR reads the part marking.</p>
+        <div class="card-top"><span class="kind">LaFabrique · CentraleSupélec FabLab</span><span class="vis">Sep–Dec 2025</span></div>
+        <h3>Automated integrated-circuit sorting system</h3>
+        <p>Designed and built a machine that sorts integrated circuits from a randomly ordered tray: an XYZ robotic arm picks each chip and places it under a camera, a vision pipeline on a Raspberry Pi identifies it (OpenCV preprocessing, then OCR of the part marking), and the arm drops it in the matching compartment, with the mechanical motion synchronised with the image analysis.</p>
         <div class="tags"><span>Raspberry Pi</span><span>OpenCV</span><span>Tesseract OCR</span><span>Robotics</span></div>
       </article>
 
@@ -363,6 +370,14 @@ footer h2 { margin-bottom: 8px; }
       </article>
 
       <article class="card" data-c="coursework finance">
+        <div class="card-top"><span class="kind">CentraleSupélec · Integration project</span><span class="vis">Sep–Nov 2025 · team of 5</span></div>
+        <h3>Cross-crypto trading signals from limit order books</h3>
+        <p>Can Bitcoin's order book predict Ethereum's next moves? From millisecond bid/ask data, we aligned the asynchronous BTC and ETH order books, built 56 features (mid-prices, spreads, order-book imbalance, short-term volatility), measured lead-lag effects with transfer entropy, then backtested two strategies: a BTC → ETH lead-lag rule and a Random Forest classifier.</p>
+        <div class="highlight">The BTC → ETH signal is statistically significant but not exploitable after costs: the Random Forest strategy goes from +4.8% without costs to −88.6% with 0.2% fees and 1 s latency.</div>
+        <div class="tags"><span>pandas</span><span>scikit-learn</span><span>Transfer entropy</span><span>Backtesting</span></div>
+        <a class="link" href="files/limit-order-book-crypto-slides.pdf" target="_blank" rel="noopener">Slides (PDF)</a>
+      </article>
+      <article class="card" data-c="coursework finance">
         <div class="card-top"><span class="kind">CentraleSupélec · Quantitative finance</span><span class="vis">2024–25</span></div>
         <h3>Statistical analysis of financial time series</h3>
         <p>Stationarity tests (ADF), ARIMA modelling, Ljung-Box diagnostics and multiple-testing correction across many series, plus heavy-tailed (power-law) distributions and adaptive dynamical systems.</p>
@@ -375,6 +390,7 @@ footer h2 { margin-bottom: 8px; }
         <p>Modelled navigation through obstacles and water currents (e.g. a kayak in rapids) as a Markov decision process with stochastic transitions. Solved it exactly with value iteration (Bellman operator), then compared Q-learning and SARSA under ε-greedy exploration and tuned their learning and exploration rates.</p>
         <div class="highlight">Q-learning learns the shortest, riskier path; SARSA learns a safer detour away from obstacles.</div>
         <div class="tags"><span>Python</span><span>Reinforcement learning</span><span>MDP</span><span>Q-learning</span><span>SARSA</span></div>
+        <a class="link" href="files/tipe-mdp-navigation-en.pdf" target="_blank" rel="noopener">Slides (PDF, English)</a>
       </article>
 
     </div>
